@@ -1,6 +1,5 @@
 import { Category } from "./types/Category";
-import './categories.styles.scss'
-import CategoryItem from "./components/categoryItem/categoryItem";
+import Directory from "./components/directory/directory";
 
 
 const App = () => {
@@ -11,11 +10,7 @@ const App = () => {
     { id: 3, title: "Advanced Programs", imageUrl: `https://imperium.coach/wp-content/uploads/2022/11/Imperium-Online-Coaching-Body-Transformation-LB.webp`}]
 
   return (
-    <div className="categories-container">
-      {categories.map((category) => (
-        <CategoryItem category={category}/>
-      ))}
-    </div>
+    <Directory categories={categories}/>
   );
 }
 
