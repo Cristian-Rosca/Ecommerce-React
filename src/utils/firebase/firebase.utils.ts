@@ -3,6 +3,7 @@ import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithRedirect } from
 
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 
+
 const firebaseConfig = {
     apiKey: "AIzaSyDw1vZtcOn0TWr1bqiLYG77HHw56q3gfvs",
     authDomain: "imperium-ecommerce-db.firebaseapp.com",
@@ -23,7 +24,8 @@ provider.setCustomParameters({
 
 export const auth = getAuth(); // getAuth() is a singleton
 
-export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+export const signInWithGooglePopup = () => signInWithPopup(auth, provider); // naming these with Google because the provider const is a GoogleAuthProvider
+export const signInWithGoogleRedirect = () => signInWithRedirect(auth, provider); // we can use other providers like FacebookAuthProvider, TwitterAuthProvider, GithubAuthProvider etc
 
 export const database = getFirestore(); // this directly points to the database inside the console
 
