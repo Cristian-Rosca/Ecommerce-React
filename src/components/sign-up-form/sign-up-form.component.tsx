@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ButtonHTMLAttributes, useState } from "react";
 
 import { auth, createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../utils/firebase/firebase.utils";
 
@@ -36,6 +36,9 @@ const SignUpForm = () => {
     const [formFields, setFormFields] = useState<FormFields>(defaultFormFields);
     const { displayName, email, password, confirmPassword } = formFields;
 
+    console.log(formFields);
+    
+
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
         setFormFields({ ...formFields, [name]: value });
@@ -56,7 +59,7 @@ const SignUpForm = () => {
             const response = await createAuthUserWithEmailAndPassword(email, password)
             console.log(response);
             if (response) {
-                const userDocRef = await createUserDocumentFromAuth(response.user, { displayName : displayName });
+                const userDocRef = await createUserDocumentFromAuth(response.user, { displayName });
                 resetFormFields();
                 alert("User created successfully");
             }
@@ -82,7 +85,7 @@ const SignUpForm = () => {
         <div className="sign-up-container">
             <h2>Don't have an account?</h2>
             <span>Sign up with email and password</span>
-            <form onSubmit={() =>  handleSubmit}>
+            <form onSubmit={handleSubmit}>
                 <FormInput label={formInputLabel.displayName} inputOptions={{type : "text", required : true, onChange : handleChange, name : "displayName", value : displayName}}/>
                 <FormInput label={formInputLabel.email} inputOptions={{type : "email", required : true, onChange : handleChange, name : "email", value : email}}/>
                 <FormInput label={formInputLabel.password} inputOptions={{type : "password", required : true, onChange : handleChange, name : "password", value : password}}/>

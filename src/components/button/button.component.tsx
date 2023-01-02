@@ -8,6 +8,7 @@ const BUTTON_TYPE_CLASSES : {[key : string] : string} = {
 
 export type ButtonInputOptions = {
     type: "button" | "submit" | "reset" | undefined,
+
 }
 
 const Button = ({children, buttonType, inputOptions} : {children : any, buttonType : string, inputOptions: ButtonInputOptions}) => {

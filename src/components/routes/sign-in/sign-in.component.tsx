@@ -6,13 +6,13 @@ import SignUpForm from '../../sign-up-form/sign-up-form.component';
 
 const SignIn = () => {
     
-    useEffect( () => {
+    useEffect( () => { 
         runGetRedirectResult()
     }, []);
 
-    const runGetRedirectResult = async () => {
+    const runGetRedirectResult = async () => { // had to create separate function to run getRedirectResult because useEffect can't be async
         const response = await getRedirectResult(auth);
-        console.log(response?.user);
+        console.log(response);
         if (response){
             const userDocRef = await createUserDocumentFromAuth(response.user);
         }
@@ -22,12 +22,6 @@ const SignIn = () => {
         const {user} = await signInWithGooglePopup();
         console.log(user);
         const userDocRef = await createUserDocumentFromAuth(user);
-    }
-
-    const logGoogleRedirectUser = async () => {
-        const user = await signInWithGoogleRedirect();
-        console.log(user);
-        // const userDocRef = await createUserDocumentFromAuth(user);
     }
     
     return ( 
