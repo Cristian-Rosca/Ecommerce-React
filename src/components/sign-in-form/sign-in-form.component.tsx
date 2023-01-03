@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, useEffect, useState } from "react";
+import { useState, useContext } from "react";
 
 import { createUserDocumentFromAuth, signInWithGooglePopup, signInAuthUserWithEmailAndPassword } from "../../utils/firebase/firebase.utils";
 
@@ -7,7 +7,9 @@ import FormInput from "../form-input/form-input.component";
 import './sign-in-form.styles.scss'
 
 import Button from "../button/button.component";
-import { getRedirectResult } from "firebase/auth";
+// import { getRedirectResult } from "firebase/auth";
+
+import { UserContext } from '../../contexts/user.context';
 
 
 export type inputOptions = {
@@ -37,7 +39,8 @@ const SignInForm = () => {
 
     console.log(formFields);
 
-
+    const { setCurrentUser } = useContext(UserContext);
+ 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
         setFormFields({ ...formFields, [name]: value });
@@ -52,8 +55,11 @@ const SignInForm = () => {
 
 
         try {
-            await signInAuthUserWithEmailAndPassword(email, password)
-            resetFormFields();
+            const response = await signInAuthUserWithEmailAndPassword(email, password)
+            if (response) {
+                setCurrentUser(response.user);
+                resetFormFields();
+            }
         } catch (error: any) {
             switch(error.code) {
                 case "auth/user-not-found":
@@ -94,6 +100,7 @@ const SignInForm = () => {
 
     const signInWithGoogle = async () => {
         const { user } = await signInWithGooglePopup();
+        setCurrentUser(user);
         console.log(user);
         await createUserDocumentFromAuth(user);
     }
