@@ -3,12 +3,16 @@ import { Fragment, useContext } from "react";
 import { ReactComponent as Logo } from '../../../assets/imperium-icon-black.svg';
 import './navigation.styles.scss';
 import { signOutAuthUser } from "../../../utils/firebase/firebase.utils";
+import CartIcon from "../../cart-icon/cart-icon.component";
+import CartDropdown from "../../cart-dropdown/cart-dropdown.component";
 import { UserContext } from '../../../contexts/user.context';
+import { CartContext } from "../../../contexts/cartContext";
 
 const Navigation = () => {
 
     const { currentUser } = useContext(UserContext);
-    console.log(currentUser);
+
+    const { isCartOpen } = useContext(CartContext);
 
 
     return (
@@ -30,7 +34,9 @@ const Navigation = () => {
                             Sign In
                         </Link>
                     }
+                    <CartIcon />
                 </div>
+               { isCartOpen ? <CartDropdown /> : ""}
             </div>
             <Outlet />
         </Fragment>
