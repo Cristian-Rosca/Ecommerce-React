@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "name": "Barbell Basics",
+    "imageUrl": "https://imperium.coach/wp-content/uploads/2022/09/Barbell-Basics-Website.png",
+    "price": 100
+  },
+  {
+    "id": 2,
+    "name": "Machine Basics",
+    "imageUrl": "https://imperium.coach/wp-content/uploads/2022/09/Machine-Basics-Website.png",
+    "price": 100
+  },
+  {
+    "id": 3,
+    "name": "Hypertrophy System",
+    "imageUrl": "https://imperium.coach/wp-content/uploads/2022/09/Hypertrophy-System-Website.png",
+    "price": 120
+  },
+  {
+    "id": 4,
+    "name": "Barbell Basics PRO",
+    "imageUrl": "https://imperium.coach/wp-content/uploads/2022/09/Barbell-Basics-Website.png",
+    "price": 180
+  },
+  {
+    "id": 5,
+    "name": "Machine Basics PRO",
+    "imageUrl": "https://imperium.coach/wp-content/uploads/2022/09/Machine-Basics-Website.png",
+    "price": 180
+  },
+  {
+    "id": 6,
+    "name": "Hypertrophy System PRO",
+    "imageUrl": "https://imperium.coach/wp-content/uploads/2022/09/Hypertrophy-System-Website.png",
+    "price": 220
+  }
+]
