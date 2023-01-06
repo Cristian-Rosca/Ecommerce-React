@@ -8,7 +8,7 @@ const BUTTON_TYPE_CLASSES : {[key : string] : string} = {
 
 export type ButtonInputOptions = {
     type?: "button" | "submit" | "reset" | undefined,
-    onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+    onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void 
 }
 
 const Button = ({children, buttonType, inputOptions} : {children : any, buttonType : string, inputOptions?: ButtonInputOptions}) => {
