@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithRedirect, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "firebase/auth";
 
-import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
+import { getFirestore, doc, getDoc, setDoc, collection, writeBatch, query, getDocs } from "firebase/firestore";
 
 
 const firebaseConfig = {
@@ -28,6 +28,36 @@ export const signInWithGooglePopup = () => signInWithPopup(auth, provider); // n
 export const signInWithGoogleRedirect = () => signInWithRedirect(auth, provider); // we can use other providers like FacebookAuthProvider, TwitterAuthProvider, GithubAuthProvider etc
 
 export const database = getFirestore(); // this directly points to the database inside the console
+
+export const addCollectionAndDocuments = async ( collectionKey : string, objectsToAdd : any) => {
+    const collectionRef = collection(database, collectionKey);
+
+    const batch = writeBatch(database);
+
+    objectsToAdd.forEach((obj : any) => {
+        const newDocRef = doc(collectionRef, obj.title.toLowerCase());
+        batch.set(newDocRef, obj);
+    })
+
+    await batch.commit();
+    console.log('Batch committed');
+    
+}
+
+export const getCategoriesAndCollections = async () => {
+    const collectionRef = collection(database, 'categories');
+    const q : any = query(collectionRef);
+
+    const querySnapshot = await getDocs(q);
+    const categoriesMap = querySnapshot.docs.reduce((acc : any, docSnapshot: any) => {
+        const {title, items} = docSnapshot.data();
+        acc[title.toLowerCase()] = items
+        return acc;
+    }, {})
+
+    return categoriesMap;
+};
+
 
 export const createUserDocumentFromAuth = async (userAuth: any, additionalInformation = {}) => {
     if (!userAuth) return;
