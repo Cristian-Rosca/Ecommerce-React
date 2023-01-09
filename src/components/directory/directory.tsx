@@ -1,5 +1,5 @@
 import { Category } from "../../types/Category";
-import CategoryItem from "../categoryItem/categoryItem";
+import DirectoryItem from "../directoryItem/directoryItem.component";
 import './directory.styles.scss';
 
 type DirectoryProps = {
@@ -10,7 +10,7 @@ const Directory: React.FC<DirectoryProps> = ({ categories }) => {
     return (
         <div className="categories-container">
             {categories.map((category) => (
-                <CategoryItem category={category} />
+                <DirectoryItem category={category} />
             ))}
         </div>
     );

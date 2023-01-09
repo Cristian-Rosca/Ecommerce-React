@@ -1,19 +1,19 @@
 import { Category } from '../../types/Category';
-import './categoryItem.styles.scss';
+import './directoryItem.styles.scss';
 
 type CategoryItemProps = {
     category: Category;
 }
 
-const CategoryItem: React.FC<CategoryItemProps> = ({category}) => {
+const DirectoryItem: React.FC<CategoryItemProps> = ({category}) => {
     return ( 
-        <div key={category.id} className="category-container">
+        <div key={category.id} className="directory-item-container">
           <div className="background-image"
             style={{
               backgroundImage: `url(${category.imageUrl})`,
             }}
           />
-          <div className="category-body-container">
+          <div className="directory-item-body">
             <h2>{category.title}</h2>
             <p>View Programs</p>
           </div>
@@ -21,4 +21,4 @@ const CategoryItem: React.FC<CategoryItemProps> = ({category}) => {
      );
 }
  
-export default CategoryItem;
+export default DirectoryItem;
