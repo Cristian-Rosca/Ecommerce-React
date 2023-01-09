@@ -40,7 +40,7 @@ export const addCollectionAndDocuments = async ( collectionKey : string, objects
     })
 
     await batch.commit();
-    console.log('Batch committed');
+
     
 }
 

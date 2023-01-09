@@ -34,8 +34,6 @@ const SignInForm = () => {
 
     const [formFields, setFormFields] = useState<SignInFormFields>(defaultFormFields);
     const { email, password } = formFields;
-
-    console.log(formFields);
  
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
@@ -87,7 +85,6 @@ const SignInForm = () => {
 
     // const runGetRedirectResult = async () => { // had to create separate function to run getRedirectResult because useEffect can't be async
     //     const response = await getRedirectResult(auth);
-    //     console.log(response);
     //     if (response) {
     //         await createUserDocumentFromAuth(response.user);
     //     }
