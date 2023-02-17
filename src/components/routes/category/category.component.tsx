@@ -1,10 +1,10 @@
-import { useContext, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './category.styles.scss';
-
 import { useParams } from 'react-router-dom';
-import { CategoriesContext } from '../../../contexts/categories.context';
 import { Product } from '../../../types/Product';
 import ProductCard from '../../product-card/product-card.component';
+import { useSelector } from 'react-redux';
+import { selectCategoriesMap } from '../../../store/categories/category.selector';
 
 export const getCategoryString = (category: string) => {
     let result = ""
@@ -53,7 +53,7 @@ const Category = () => {
 
     const categoryTitle = category as string
 
-    const { categories } = useContext(CategoriesContext);
+    const categories = useSelector(selectCategoriesMap)
 
     const [products, setProducts] = useState<Product[]>(categories[getCategoryString(categoryTitle)]);
 

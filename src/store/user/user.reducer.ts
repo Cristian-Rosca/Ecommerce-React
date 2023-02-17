@@ -1,9 +1,9 @@
 import { User } from "../../types/User"
+import { USER_ACTION_TYPES } from "./user.types"
 
-export type USER_ACTION_TYPES = "SET_CURRENT_USER" | "CLEAR_CURRENT_USER"
 
 type USER_ACTION = {
-    type: string,
+    type: USER_ACTION_TYPES,
     payload: any
 }
 
@@ -20,15 +20,8 @@ export const userReducer = (state : UserState = INITIAL_STATE, action: USER_ACTI
 
     const { type, payload } = action;
 
-    console.log("action : ", action);
-    console.log("state : ", state);
-
-
-    console.log('type: ',type)
-
-
     switch (type) {
-        case "SET_CURRENT_USER":
+        case "user/SET_CURRENT_USER":
             return {
                 ...state,
                 currentUser: payload

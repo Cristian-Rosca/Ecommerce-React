@@ -1,0 +1,1 @@
+export type USER_ACTION_TYPES = "user/SET_CURRENT_USER" 

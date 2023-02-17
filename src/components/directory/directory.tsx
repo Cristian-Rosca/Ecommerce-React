@@ -13,7 +13,7 @@ const Directory: React.FC = () => {
         return (
         <div className="categories-container">
             {categories.map((category) => (
-                <DirectoryItem category={category} route={category.route}/>
+                <DirectoryItem category={category} route={category.route} key={category.id}/>
             ))}
         </div>
     );
