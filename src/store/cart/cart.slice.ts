@@ -1,6 +1,17 @@
 import { CartItem } from "../../types/CartItem";
 import { Product } from "../../types/Product";
-import { createAction } from "../../utils/reducer/reducer.utils";
+import { createSlice } from "@reduxjs/toolkit";
+
+type CartState = {
+    isCartOpen: boolean,
+    cartItems: CartItem[],
+
+}
+
+const CART_INITIAL_STATE: CartState = {
+    isCartOpen: false,
+    cartItems: [],
+}
 
 const addCartItem = (cartItems: CartItem[], productItemToAdd: Product) => {
     const existingCartItem = cartItems.find((cartItem) => cartItem.id === productItemToAdd.id)
@@ -26,19 +37,24 @@ const clearCartItem = (cartItems: CartItem[], productItemToClear: Product) => {
     return cartItems.filter((cartItem) => cartItem.id !== productItemToClear.id)
 }
 
-export const setIsCartOpen = (boolean : boolean) => createAction("cart/SET_IS_CART_OPEN", boolean);
+export const cartSlice = createSlice({
+    name: "cart",
+    initialState: CART_INITIAL_STATE,
+    reducers: {
+        addItemToCart: (state, action) => {
+            state.cartItems = addCartItem(state.cartItems, action.payload)
+        },
+        removeItemFromCart: (state, action) => {
+            state.cartItems = removeCartItem(state.cartItems, action.payload)
+        },
+        clearItemFromCart: (state, action) => {
+            state.cartItems = clearCartItem(state.cartItems, action.payload)
+        },
+        setIsCartOpen: (state, action) => {
+            state.isCartOpen = action.payload
+        }
+    }})
 
-export const addItemToCart = (cartItems : CartItem[], productToAdd: Product) => {
-    const newCartItems = addCartItem(cartItems, productToAdd)
-    return createAction("cart/SET_CART_ITEMS", newCartItems)
-}
+export const { addItemToCart, removeItemFromCart, clearItemFromCart, setIsCartOpen } = cartSlice.actions
 
-export const removeItemFromCart = (cartItems : CartItem[], productToRemove: Product) => {
-    const newCartItems = removeCartItem(cartItems, productToRemove)
-    return createAction("cart/SET_CART_ITEMS", newCartItems)
-}
-
-export const clearItemFromCart = (cartItems : CartItem[], productToClear: Product) => {
-    const newCartItems = clearCartItem(cartItems, productToClear)
-    return createAction("cart/SET_CART_ITEMS", newCartItems)
-}
+export const cartReducer = cartSlice.reducer

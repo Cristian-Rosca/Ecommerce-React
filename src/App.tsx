@@ -7,7 +7,7 @@ import Shop from "./components/routes/shop/shop.component";
 import Checkout from "./components/routes/checkout/checkout.component";
 import { useEffect } from "react";
 import { createUserDocumentFromAuth, onAuthStateChangedListener } from "./utils/firebase/firebase.utils";
-import { setCurrentUser } from "./store/user/user.action";
+import { setCurrentUser } from "./store/user/user.slice";
 import { useDispatch } from "react-redux";
 
 const App = () => {
@@ -19,7 +19,8 @@ const App = () => {
         if (user) {
             createUserDocumentFromAuth(user);
         }
-        dispatch(setCurrentUser(user));
+        const pickedUser = user && (({accessToken, email}) => ({accessToken, email}))(user); // we are picking only the properties we need to not trip off non-serializable middlewares
+        dispatch(setCurrentUser(pickedUser));
     });
 
     return unsubscribe; // we are calling unsubscribe to clean up the listener and close the connection
