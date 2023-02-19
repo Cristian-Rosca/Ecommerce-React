@@ -11,11 +11,11 @@ export type ButtonInputOptions = {
     onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void 
 }
 
-const Button = ({children, buttonType, inputOptions} : {children : any, buttonType : string, inputOptions?: ButtonInputOptions}) => {
+const Button = ({children, buttonType, inputOptions, disabled, isLoading} : {children : any, buttonType : string, inputOptions?: ButtonInputOptions, disabled?: boolean, isLoading? : boolean}) => {
 
     return ( 
-        <button className={`button-container ${BUTTON_TYPE_CLASSES[buttonType]}`} {...inputOptions}> 
-            {children}
+        <button disabled={disabled} className={`button-container ${BUTTON_TYPE_CLASSES[buttonType]}`} {...inputOptions}> 
+            {isLoading ? "Processing..." : children}
         </button>
      );
 }
