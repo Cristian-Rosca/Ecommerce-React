@@ -1,12 +1,4 @@
-const dotenv = require('dotenv-safe');
-dotenv.config({
-    example: '.env.example', // path to your .env.example file
-    path: '.env', // path to your .env file
-    allowEmptyValues: true, // allow empty values for optional variables
-    systemvars: true, // include system environment variables
-    silent: true, // suppress warnings
-    required: ['STRIPE_SECRET_KEY', 'REACT_APP_STRIPE_PUBLISHABLE_KEY'] // list of required variables
-  });
+require('dotenv').config();
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 exports.handler = async (event) => {
@@ -16,7 +8,7 @@ exports.handler = async (event) => {
         const { amount } = JSON.parse(event.body);
         const paymentIntent = await stripe.paymentIntents.create({
             amount,
-            currency: "eur",
+            currency: "usd",
             payment_method_types: ["card"],
         });
         return {
