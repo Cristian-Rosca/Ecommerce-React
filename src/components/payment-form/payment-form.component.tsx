@@ -34,9 +34,15 @@ const PaymentForm = () => {
 
         const { paymentIntent: { client_secret } } = response;
 
+        const isValidStripeCardElement = (card: StripeCardElement | null): card is StripeCardElement => card !== null;
+
+        const cardDetails = elements.getElement(CardElement)
+
+        if (!isValidStripeCardElement(cardDetails)) return; // This is a type guard
+
         const paymentResult = await stripe.confirmCardPayment(client_secret, {
             payment_method: {
-                card: elements.getElement(CardElement) as StripeCardElement,
+                card: cardDetails,
                 billing_details: {
                     name: currentUser ? currentUser.displayName : 'Guest'
                 }

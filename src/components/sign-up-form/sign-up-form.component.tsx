@@ -7,15 +7,8 @@ import FormInput from "../form-input/form-input.component";
 import './sign-up-form.styles.scss'
 
 import Button from "../button/button.component";
+import { AuthError, AuthErrorCodes } from "firebase/auth";
 
-
-export type inputOptions = {
-    type: string,
-    required: boolean,
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
-    name: string,
-    value: string
-}
 
 const SignUpForm = () => {
 
@@ -56,12 +49,12 @@ const SignUpForm = () => {
         try {
             const response = await createAuthUserWithEmailAndPassword(email, password)
             if (response) {
-                const userDocRef = await createUserDocumentFromAuth(response.user, { displayName });
+                await createUserDocumentFromAuth(response.user, { displayName });
                 resetFormFields();
                 alert("User created successfully");
             }
-        } catch (error: any) {
-            if (error.code === "auth/email-already-in-use") {
+        } catch (error) {
+            if ((error as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {
                 alert("Email already in use");
             }
             else {
@@ -83,11 +76,11 @@ const SignUpForm = () => {
             <h2>Don't have an account?</h2>
             <span>Sign up with email and password</span>
             <form onSubmit={handleSubmit}>
-                <FormInput label={formInputLabel.displayName} inputOptions={{type : "text", required : true, onChange : handleChange, name : "displayName", value : displayName}}/>
-                <FormInput label={formInputLabel.email} inputOptions={{type : "email", required : true, onChange : handleChange, name : "email", value : email}}/>
-                <FormInput label={formInputLabel.password} inputOptions={{type : "password", required : true, onChange : handleChange, name : "password", value : password}}/>
-                <FormInput label={formInputLabel.confirmPassword} inputOptions={{type : "password", required : true, onChange : handleChange, name : "confirmPassword", value : confirmPassword}}/>
-                <Button buttonType="default" inputOptions={{type : "submit"}}>Sign Up</Button>
+                <FormInput label={formInputLabel.displayName} type={"text"} required={true} onChange={handleChange} name={"displayName"} value={displayName}/>
+                <FormInput label={formInputLabel.email} type={"email"} required={true} onChange={handleChange} name={"email"} value={email}/>
+                <FormInput label={formInputLabel.password} type={"password"} required={true} onChange={handleChange} name={"password"} value={password}/>
+                <FormInput label={formInputLabel.confirmPassword} type={"password"} required={true} onChange={handleChange} name={"confirmPassword"} value={confirmPassword}/>
+                <Button buttonType="default" type={"submit"}>Sign Up</Button>
             </form>
         </div>
     );

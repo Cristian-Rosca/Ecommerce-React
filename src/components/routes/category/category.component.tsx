@@ -8,7 +8,7 @@ import { selectCategoriesMap } from '../../../store/categories/category.selector
 
 export const getCategoryString = (category: string) => {
     let result = ""
-
+    
     switch (category.toLocaleLowerCase()) {
         case "beginner-programs": {
             result = "beginner programs"
@@ -47,11 +47,15 @@ export const getCategoryLink = (category: string) => {
     return result
 }
 
+type CategoryRouteParams = {
+    category: string
+}
+
 const Category = () => {
 
-    const { category } = useParams();
+    const { category } = useParams<keyof CategoryRouteParams>() as CategoryRouteParams;
 
-    const categoryTitle = category as string
+    const categoryTitle = category
 
     const categories = useSelector(selectCategoriesMap)
 

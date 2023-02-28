@@ -1,15 +1,16 @@
-import { inputOptions } from '../sign-up-form/sign-up-form.component';
 import './form-input.styles.scss'
 
-const FormInput = ({ label, inputOptions } : {label : string; inputOptions : inputOptions}) => {
+type formInputProps = {
+    label: string,
+} & React.InputHTMLAttributes<HTMLInputElement> 
 
-  
+const FormInput = ({ label, ...otherProps } : formInputProps) => {
+
     return (
         <div className="group">
-            <input className="form-input" {...inputOptions} />
+            <input className="form-input" {...otherProps} />
             {label ?
-
-                <label className={`${inputOptions.value.length ? 'shrink' : ""} form-input-label`}>{label}</label>
+                <label className={`${Boolean(otherProps.value && typeof otherProps.value === 'string') ? 'shrink' : ""} form-input-label`}>{label}</label>
                 :
                 <></>
             }

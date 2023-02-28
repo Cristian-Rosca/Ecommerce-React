@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { createUserDocumentFromAuth, signInWithGooglePopup, signInAuthUserWithEmailAndPassword } from "../../utils/firebase/firebase.utils";
+import { signInWithGooglePopup, signInAuthUserWithEmailAndPassword } from "../../utils/firebase/firebase.utils";
 
 import FormInput from "../form-input/form-input.component";
 
@@ -9,14 +9,6 @@ import './sign-in-form.styles.scss'
 import Button from "../button/button.component";
 // import { getRedirectResult } from "firebase/auth";
 
-
-export type inputOptions = {
-    type: string,
-    required: boolean,
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
-    name: string,
-    value: string
-}
 
 const SignInForm = () => {
 
@@ -79,17 +71,6 @@ const SignInForm = () => {
         password = "Password",
     }
 
-    // useEffect(() => {
-    //     runGetRedirectResult()
-    // }, []);
-
-    // const runGetRedirectResult = async () => { // had to create separate function to run getRedirectResult because useEffect can't be async
-    //     const response = await getRedirectResult(auth);
-    //     if (response) {
-    //         await createUserDocumentFromAuth(response.user);
-    //     }
-    // }
-
     const signInWithGoogle = async () => {
         await signInWithGooglePopup();
     }
@@ -100,13 +81,12 @@ const SignInForm = () => {
             <h2>Already have an account?</h2>
             <span>Sign in with email and password</span>
             <form onSubmit={handleSubmit}>
-                <FormInput label={formInputLabel.email} inputOptions={{ type: "email", required: true, onChange: handleChange, name: "email", value: email }} />
-                <FormInput label={formInputLabel.password} inputOptions={{ type: "password", required: true, onChange: handleChange, name: "password", value: password }} />
+                <FormInput label={formInputLabel.email} type="email" required={true} onChange={handleChange} name={"email"} value={email} />
+                <FormInput label={formInputLabel.password} type="password" required={true} onChange={handleChange} name="password" value={password} />
                 <div className="buttons-container">
 
-                    <Button buttonType="default" inputOptions={{ type: "submit" }}>Sign In</Button>
-                    <Button buttonType="google" inputOptions={{ type: "button", onClick: signInWithGoogle }}>Google Sign In</Button>
-                    {/* <Button buttonType="google" inputOptions={{ onClick: signInWithGoogleRedirect }}>Sign In With Google Redirect</Button> */}
+                    <Button buttonType="default" type="submit" >Sign In</Button>
+                    <Button buttonType="google" type="button" onClick={signInWithGoogle} >Google Sign In</Button>
                 </div>
             </form>
         </div>

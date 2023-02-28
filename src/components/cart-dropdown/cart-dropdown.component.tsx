@@ -29,7 +29,7 @@ const CartDropdown = () => {
                 }
 
             </div>
-            <Button buttonType='inverted' inputOptions={{onClick: goToCheckoutHandler}}>Checkout</Button>
+            <Button buttonType='inverted' onClick={goToCheckoutHandler} >Checkout</Button>
         </div>
      );
 }
